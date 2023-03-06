@@ -15,13 +15,14 @@ copy_artifact()
 }
 
 cd ${OKTA_HOME}/${REPO}
-git fetch origin ${TOPIC_BRANCH}
+git fetch --depth=1 origin ${TOPIC_BRANCH}
 export RET=$?
 
 if [ "${RET}" == "0" ]
 then
   echo "${TOPIC} exists on remote, updating"
-  git checkout ${TOPIC_BRANCH}
+  #git checkout ${TOPIC_BRANCH}
+  git reset --hard FETCH_HEAD
 else
   echo "Creating ${TOPIC}"
   git checkout -b ${TOPIC_BRANCH}
